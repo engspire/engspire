@@ -4,7 +4,7 @@ import { generatePayHereHash } from './generatePayHereHash';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const merchantId = process.env.PAYHERE_MERCHANT_ID ?? "";
+  const merchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID ?? "";
   const merchantSecret = process.env.PAYHERE_MERCHANT_SECRET ?? "";
   const orderId = searchParams.get("orderId") ?? "";
   const amount = searchParams.get("amount") ?? "";

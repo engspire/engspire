@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   if (!statusCode) throw new Error("status_code is missing.");
   if (!md5sig) throw new Error("md5sig is missing.");
 
-  const localMerchantId = process.env.PAYHERE_MERCHANT_ID ?? "";
+  const localMerchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID ?? "";
   const localMerchantSecret = process.env.PAYHERE_MERCHANT_SECRET ?? "";
 
   const localMd5sig = generatePayHereHash(localMerchantId, localMerchantSecret, orderId, +amount, currency, statusCode);

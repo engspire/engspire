@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 
 export function generatePayHereHash(merchantId: string, merchantSecret: string, orderId: string, amount: number, currency: string, statusCode?: string) {
-  merchantId = process.env.PAYHERE_MERCHANT_ID ?? "";
+  merchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID ?? "";
   merchantSecret = process.env.PAYHERE_MERCHANT_SECRET ?? "";
 
   let hashInput: string;
