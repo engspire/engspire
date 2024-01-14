@@ -24,7 +24,7 @@ export default function Payments() {
           </div>
           <div className="flex flex-col w-full place-items-center gap-8 mt-10 lg:mt-0">
             <h2 className="text-2xl font-bold">Online payments</h2>
-            <OnlinePaymentForm sandbox={process.env.PAYHERE_SANDBOX ? true : false} />
+            <OnlinePaymentForm />
           </div>
         </div>
       </div>

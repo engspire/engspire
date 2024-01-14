@@ -24,11 +24,9 @@ type FormData = {
   currency: string,
 };
 
-type OnlinePaymentFormProps = {
-  sandbox?: boolean,
-};
+type OnlinePaymentFormProps = {};
 
-export default function OnlinePaymentForm({ sandbox }: OnlinePaymentFormProps) {
+export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
   const [data, setData] = useState({} as FormData);
   const [hasProductInfo, setHasProductInfo] = useState(false);
   const [payHereHash, setPayHereHash] = useState<string | undefined>(undefined);
@@ -37,7 +35,7 @@ export default function OnlinePaymentForm({ sandbox }: OnlinePaymentFormProps) {
 
   useEffect(() => {
     if (productId && amount && currency) setHasProductInfo(true);
-  }, [productId, amount, currency]);
+  }, []);
 
   useEffect(() => {
     fetch(`/payments/payhere/hash?orderId=${orderId}&amount=${amount}&currency=${currency}`)
@@ -61,9 +59,11 @@ export default function OnlinePaymentForm({ sandbox }: OnlinePaymentFormProps) {
     <TransactionSummary {...data} updateFields={updateFields} key={Math.random()} />,
   ]);
 
+  const sandbox = process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === "true";
+
   const payment = {
     "sandbox": sandbox,
-    "merchant_id": sandbox ? "1223811" : "228857",    // Replace the Merchant ID accordingly --- sandbox ▶️ 1223811
+    "merchant_id": process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID,
     "return_url": sandbox ? "https://dev.engspire.lk/payments/return" : "https://www.engspire.lk/payments/return",     // Important
     "cancel_url": sandbox ? "https://dev.engspire.lk/payments/cancel" : "https://www.engspire.lk/payments/cancel",     // Important
     "notify_url": sandbox ? "https://dev.engspire.lk/payments/payhere/notify" : "https://www.engspire.lk/payments/payhere/notify", // Important: This is where the backend is updated if/when the transaction succeeds
