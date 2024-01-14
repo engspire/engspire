@@ -1,0 +1,1 @@
+export const ENGSPIRE_API_URL = "https://api.engspire.lk"
