@@ -9,7 +9,7 @@ export default function RandomQuote() {
       <div className="chat chat-start max-w-sm">
         {quote.authorImageUrl && (
           <div className="chat-image avatar w-12 mask mask-squircle">
-            <img src={quote.authorImageUrl} />
+            <img src={quote.authorImageUrl} alt={quote.author} />
           </div>
         )}
         <div className="chat-bubble bg-success text-success-content text-sm">{quote.quote}</div>

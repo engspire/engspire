@@ -45,9 +45,9 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
   }
 
   const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
-    <ContactDetailsForm {...data} updateFields={updateFields} />,
-    <AvailableDaysForm {...data} updateFields={updateFields} />,
-    <AvailableTimeSlotsForm {...data} updateFields={updateFields} />,
+    <ContactDetailsForm {...data} updateFields={updateFields} key={Math.random()} />,
+    <AvailableDaysForm {...data} updateFields={updateFields} key={Math.random()} />,
+    <AvailableTimeSlotsForm {...data} updateFields={updateFields} key={Math.random()} />,
   ]);
 
   function onSubmit(event: FormEvent) {

@@ -37,7 +37,7 @@ export default function OnlinePaymentForm({ sandbox }: OnlinePaymentFormProps) {
 
   useEffect(() => {
     if (productId && amount && currency) setHasProductInfo(true);
-  }, [data]);
+  }, [productId, amount, currency]);
 
   useEffect(() => {
     fetch(`/payments/payhere/hash?orderId=${orderId}&amount=${amount}&currency=${currency}`)
@@ -56,9 +56,9 @@ export default function OnlinePaymentForm({ sandbox }: OnlinePaymentFormProps) {
   }
 
   const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
-    <ProductDetails {...data} updateFields={updateFields} />,
-    <ContactDetails {...data} updateFields={updateFields} />,
-    <TransactionSummary {...data} updateFields={updateFields} />,
+    <ProductDetails {...data} updateFields={updateFields} key={Math.random()} />,
+    <ContactDetails {...data} updateFields={updateFields} key={Math.random()} />,
+    <TransactionSummary {...data} updateFields={updateFields} key={Math.random()} />,
   ]);
 
   const payment = {

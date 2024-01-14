@@ -1,5 +1,4 @@
 "use client";
-import { Course_Learner_Status } from 'database';
 import React from 'react';
 import CourseDetailsModal from './CourseDetailsModal';
 
@@ -8,7 +7,7 @@ type IMyCoursesTableProps = {
 };
 
 export default function MyCoursesTable({ records }: IMyCoursesTableProps) {
-  function getStatusColor(status: Course_Learner_Status) {
+  function getStatusColor(status: "ACTIVE" | "COMPLETED" | "PENDING" | "SUSPENDED") {
     let color = "string";
     switch (status) {
       case "ACTIVE":
@@ -34,7 +33,7 @@ export default function MyCoursesTable({ records }: IMyCoursesTableProps) {
       </thead>
       <tbody>
         {records.length > 0 ? records.map((record, i) => (
-          <tr>
+          <tr key={Math.random()}>
             <td className='pr-0 flex flex-row items-center'>
               <div className="dropdown">
                 <button className="btn btn-ghost btn-xs btn-circle" tabIndex={0}>

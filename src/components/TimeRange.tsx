@@ -54,11 +54,11 @@ export default function TimeRange(props: ITimeRangeProps) {
       <div className='flex flex-row items-center gap-1'>
         <label htmlFor="" className='text-sm'>From</label>
         <select className="select select-xs select-bordered" defaultValue={startTime} ref={startTimeRef} onChange={sendDataToParent}>
-          {startTimeOptions.map((option, i) => <option>{option}</option>)}
+          {startTimeOptions.map((option, i) => <option key={Math.random()}>{option}</option>)}
         </select>
         <label htmlFor="" className='text-sm'>to</label>
         <select className="select select-xs select-bordered" defaultValue={defaultEndTime} ref={endTimeRef} onChange={sendDataToParent}>
-          {endTimeOptions.map((option, i) => <option>{option}</option>)}
+          {endTimeOptions.map((option, i) => <option key={Math.random()}>{option}</option>)}
         </select>
         <div className="tooltip tooltip-top md:tooltip-right z-50" data-tip="Remove">
           <button className="btn btn-square btn-xs btn-error md:btn-ghost hover:btn-error" type="button">

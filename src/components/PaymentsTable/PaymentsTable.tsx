@@ -1,13 +1,12 @@
 "use client"
 import { useAuth } from '@clerk/nextjs';
-import { Payment, User } from 'database';
 import { format } from 'date-fns';
 
 export type IPaymentsTableProps = {
   data: IPaymentRecord[];
 };
 
-type IPaymentRecord = Payment & { payer: User; payee: User; };
+type IPaymentRecord = any;
 
 export default function PaymentsTable({ data }: IPaymentsTableProps) {
   const { userId } = useAuth();
@@ -29,7 +28,7 @@ export default function PaymentsTable({ data }: IPaymentsTableProps) {
         <tbody>
           {/* {new Array(5).fill(0).map((_, i) => ( */}
           {data.length > 0 ? data.map((record, i) => (
-            <tr>
+            <tr key={Math.random()}>
               <td className='w-[100px]'>{format(record?.paidAt, "yyyy-MM-dd")}</td>
               <td className='w-[50px]'>{record?.payee?.externalId === userId ? (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-primary">

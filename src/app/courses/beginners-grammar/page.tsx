@@ -63,9 +63,9 @@ export default function BeginnersGrammarCourse() {
                                 <strong className="font-bold">Pronouns and Determiners</strong>
                             </li>
                             <li className="mb-4">
-                                <strong className="font-bold">Non-action "be"</strong>
+                                <strong className="font-bold">Non-action &quot;be&quot;</strong>
                                 <ul className="list-disc pl-6">
-                                    <li>"am", "is", "are", "was", "were", and Modal Verbs (1) + "be"</li>
+                                    <li>&quot;am&quot;, &quot;is&quot;, &quot;are&quot;, &quot;was&quot;, &quot;were&quot;, and Modal Verbs (1) + &quot;be&quot;</li>
                                     <li>“have been”, “being”</li>
                                 </ul>
                             </li>
@@ -104,7 +104,7 @@ export default function BeginnersGrammarCourse() {
                                     <li>Simple Future Tense + Modal Verbs (2)</li>
                                     <li>Expressing Probability</li>
                                     <li>Present Continuous + Future Time Expression</li>
-                                    <li>"going to" + V1</li>
+                                    <li>&quot;going to&quot; + V1</li>
                                 </ul>
                             </li>
                             <li className="mb-4">
