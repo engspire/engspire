@@ -23,5 +23,5 @@ export function generatePayHereHash(merchantId: string, orderId: string, amount:
 
   const hash: string = crypto.createHash('md5').update(hashInput).digest('hex').toUpperCase();
 
-  return {merchantId, hash};
+  return hash;
 }
