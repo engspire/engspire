@@ -29,7 +29,7 @@ export default function ProductDetails({ updateFields }: ProductDetailsProps) {
     setIntakeData(intakeData);
 
     updateFields({
-      orderId: `order_${uuidV4()}`,
+      orderId: `payhere_${uuidV4()}`,
       productId: intakeData?.batchCode?.toString(),
       productName: course?.title,
       amount: intakeData?.amount,

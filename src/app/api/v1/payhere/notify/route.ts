@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   const localMerchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID ?? "";
   const localMerchantSecret = process.env.PAYHERE_MERCHANT_SECRET ?? "";
 
-  const localMd5sig = generatePayHereHash(localMerchantId, localMerchantSecret, orderId, +amount, currency, statusCode);
+  const { hash: localMd5sig } = generatePayHereHash(merchantId, orderId, +amount, currency, statusCode);
 
   if (localMd5sig === md5sig && statusCode === '2') {
     console.log("Save the record to the database.");

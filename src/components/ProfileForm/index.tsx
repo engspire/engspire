@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 'use client';
 import useMultistepForm from '@/hooks/multistep-form';
 import { FormEvent, useState } from 'react';
@@ -45,9 +46,9 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
   }
 
   const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
-    <ContactDetailsForm {...data} updateFields={updateFields} key={Math.random()} />,
-    <AvailableDaysForm {...data} updateFields={updateFields} key={Math.random()} />,
-    <AvailableTimeSlotsForm {...data} updateFields={updateFields} key={Math.random()} />,
+    <ContactDetailsForm {...data} updateFields={updateFields} />,
+    <AvailableDaysForm {...data} updateFields={updateFields} />,
+    <AvailableTimeSlotsForm {...data} updateFields={updateFields} />,
   ]);
 
   function onSubmit(event: FormEvent) {

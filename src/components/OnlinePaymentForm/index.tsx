@@ -39,9 +39,9 @@ export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
   }, [amount, currency, data, productId]);
 
   useEffect(() => {
-    fetch(`/payments/payhere/hash?orderId=${orderId}&amount=${amount}&currency=${currency}`)
+    fetch(`/api/v1/payhere/hash?merchantId=${process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID}&orderId=${orderId}&amount=${amount}&currency=${currency}`)
       .then(response => response.json())
-      .then(data => setPayHereHash(data.hash))
+      .then(data => { console.log(data); setPayHereHash(data.hash); })
       .catch(error => console.error('Error: Fetching PayHere hash failed', error));
   }, [orderId, amount, currency]);
 
@@ -65,9 +65,9 @@ export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
   const payment = {
     "sandbox": sandbox,
     "merchant_id": process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID,
-    "return_url": sandbox ? "https://dev.engspire.lk/payments/return" : "https://www.engspire.lk/payments/return",     // Important
-    "cancel_url": sandbox ? "https://dev.engspire.lk/payments/cancel" : "https://www.engspire.lk/payments/cancel",     // Important
-    "notify_url": sandbox ? "https://dev.engspire.lk/payments/payhere/notify" : "https://www.engspire.lk/payments/payhere/notify", // Important: This is where the backend is updated if/when the transaction succeeds
+    "return_url": sandbox ? "https://dev.engspire.lk/api/v1/payments/return" : "https://www.engspire.lk/api/v1/payments/return",     // Important
+    "cancel_url": sandbox ? "https://dev.engspire.lk/api/v1/payments/cancel" : "https://www.engspire.lk/api/v1/payments/cancel",     // Important
+    "notify_url": sandbox ? "https://dev.engspire.lk/api/v1/payhere/notify" : "https://www.engspire.lk/api/v1/payhere/notify", // Important: This is where the backend is updated if/when the transaction succeeds
     "order_id": data.orderId,
     "items": data.productName,
     "amount": data.amount,

@@ -1,8 +1,7 @@
 import * as crypto from 'crypto';
 
-export function generatePayHereHash(merchantId: string, merchantSecret: string, orderId: string, amount: number, currency: string, statusCode?: string) {
-  merchantId = process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID ?? "";
-  merchantSecret = process.env.PAYHERE_MERCHANT_SECRET ?? "";
+export function generatePayHereHash(merchantId: string, orderId: string, amount: number, currency: string, statusCode?: string) {
+  const merchantSecret = merchantId === process.env.NEXT_PUBLIC_PAYHERE_MERCHANT_ID ? process.env.PAYHERE_MERCHANT_SECRET ?? "" : "ERROR: Invalid Merchant ID";
 
   let hashInput: string;
   if (statusCode) {
@@ -24,5 +23,5 @@ export function generatePayHereHash(merchantId: string, merchantSecret: string, 
 
   const hash: string = crypto.createHash('md5').update(hashInput).digest('hex').toUpperCase();
 
-  return hash;
+  return {merchantId, hash};
 }
