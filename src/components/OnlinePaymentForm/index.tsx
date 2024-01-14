@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 'use client';
 import useMultistepForm from '@/hooks/multistep-form';
 import Image from 'next/image';
@@ -35,7 +36,7 @@ export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
 
   useEffect(() => {
     if (productId && amount && currency) setHasProductInfo(true);
-  }, []);
+  }, [amount, currency, data, productId]);
 
   useEffect(() => {
     fetch(`/payments/payhere/hash?orderId=${orderId}&amount=${amount}&currency=${currency}`)
@@ -54,9 +55,9 @@ export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
   }
 
   const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
-    <ProductDetails {...data} updateFields={updateFields} key={Math.random()} />,
-    <ContactDetails {...data} updateFields={updateFields} key={Math.random()} />,
-    <TransactionSummary {...data} updateFields={updateFields} key={Math.random()} />,
+    <ProductDetails {...data} updateFields={updateFields} />,
+    <ContactDetails {...data} updateFields={updateFields} />,
+    <TransactionSummary {...data} updateFields={updateFields} />,
   ]);
 
   const sandbox = process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === "true";
