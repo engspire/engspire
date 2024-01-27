@@ -5,8 +5,6 @@ import { NextResponse } from 'next/server';
 export async function PATCH() {
   const { userId } = auth();
 
-  console.log(userId);
-
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const prisma = new PrismaClient();
