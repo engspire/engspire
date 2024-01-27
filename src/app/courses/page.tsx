@@ -1,13 +1,11 @@
+"use client";
 import CourseCards from "@/components/CourseCards";
-import { Metadata } from "next";
+import { useProfile } from '@/providers/ProfileProvider';
 import Image from "next/image";
 
-export const metadata: Metadata = {
-    title: "Courses at Engspire",
-    description: "Engspire offers several online courses that have been designed for helping you to improve your English language skills.",
-};
-
 export default function Courses() {
+    const { profile, isLoading } = useProfile();
+
     return (
         <main>
             <div className="hero">
@@ -15,7 +13,7 @@ export default function Courses() {
                     <Image src="/online-conversation.png" alt="Online Classes" width={250} height={250} />
                     <div className="max-w-md">
                         <h1 className="text-5xl font-bold">Courses</h1>
-                        <p className="py-6">We offer several online courses that have been designed for improving specific language areas.</p>
+                        <p className="py-6">{!isLoading && profile?.firstName && `Hi ${profile.firstName}!`}<br/>These are the courses we offer at Engspire.</p>
                     </div>
                 </div>
             </div>

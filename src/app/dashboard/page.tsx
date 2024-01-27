@@ -1,5 +1,6 @@
 "use client";
 import ActivityHeatMap from '@/components/ActivityHeatMap';
+import CourseCards from '@/components/CourseCards';
 import CurrentUserCard from '@/components/CurrentUserCard';
 import MoreActionsButton from '@/components/DashboardActionButtons/MoreActionsButton';
 import ScheduleConversationButton from '@/components/DashboardActionButtons/ScheduleConversationButton';
