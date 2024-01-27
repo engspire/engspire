@@ -13,10 +13,13 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
   externalId   String   @unique
+  username     String?  @unique
   firstName    String?
   lastName     String?
   role         UserRole @default(GUEST)
   lastOnlineAt DateTime @default(now())
+  emailAddress String?
+  phoneNumber  String?
 }
 
 enum UserRole {

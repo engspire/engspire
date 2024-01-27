@@ -5,6 +5,10 @@ import { FormEvent, useState } from 'react';
 import AvailableDaysForm from './AvailableDaysForm';
 import AvailableTimeSlotsForm, { TimeSlot } from './AvailableTimeSlotsForm';
 import ContactDetailsForm from './ContactDetailsForm';
+import { useMutation } from '@tanstack/react-query';
+import { apiClient } from '@/apiClient';
+import { useProfile } from '@/providers/ProfileProvider';
+import { useAuth } from '@clerk/nextjs';
 
 type FormData = {
   firstName: string,
@@ -47,15 +51,26 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
 
   const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
     <ContactDetailsForm {...data} updateFields={updateFields} />,
-    <AvailableDaysForm {...data} updateFields={updateFields} />,
-    <AvailableTimeSlotsForm {...data} updateFields={updateFields} />,
   ]);
+
+  const { getToken } = useAuth();
+
+  const createProfileMutation = useMutation({
+    mutationFn: async (profileData) => {
+      return apiClient(await getToken()).patch("/v1/user", profileData);
+    },
+  onSuccess: () => {
+    alert("✅ Profile updated successfully.");
+  }
+  });
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
     if (!isLastStep) nextStep();
     else {
       console.log("CompleteProfileForm Data:", data); // Do something with the data
+
+      createProfileMutation.mutate(data as any);
     }
   }
 
