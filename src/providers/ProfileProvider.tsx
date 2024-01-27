@@ -21,6 +21,8 @@ export default function ProfileProvider({ children }: { children: ReactNode; }) 
       try {
         const { data } = await apiClient(await getToken()).patch('/me');
 
+        console.log(data);
+
         return data;
       } catch (error) {
         throw error;

@@ -1,14 +1,12 @@
 /* eslint-disable react/jsx-key */
 'use client';
-import useMultistepForm from '@/hooks/multistep-form';
-import { FormEvent, useState } from 'react';
-import AvailableDaysForm from './AvailableDaysForm';
-import AvailableTimeSlotsForm, { TimeSlot } from './AvailableTimeSlotsForm';
-import ContactDetailsForm from './ContactDetailsForm';
-import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '@/apiClient';
-import { useProfile } from '@/providers/ProfileProvider';
+import useMultistepForm from '@/hooks/multistep-form';
 import { useAuth } from '@clerk/nextjs';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { FormEvent, useState } from 'react';
+import { TimeSlot } from './AvailableTimeSlotsForm';
+import ContactDetailsForm from './ContactDetailsForm';
 
 type FormData = {
   firstName: string,
@@ -55,21 +53,21 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
 
   const { getToken } = useAuth();
 
+  const queryClient = useQueryClient();
+
   const createProfileMutation = useMutation({
     mutationFn: async (profileData) => {
       return apiClient(await getToken()).patch("/v1/user", profileData);
     },
-  onSuccess: () => {
-    alert("✅ Profile updated successfully.");
-  }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["userProfile"] });
+    },
   });
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
     if (!isLastStep) nextStep();
     else {
-      console.log("CompleteProfileForm Data:", data); // Do something with the data
-
       createProfileMutation.mutate(data as any);
     }
   }
