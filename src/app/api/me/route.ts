@@ -3,23 +3,23 @@ import { PrismaClient } from "@prisma/client";
 import { NextResponse } from 'next/server';
 
 export async function PATCH() {
-  const { user } = auth();
+  const { userId } = auth();
 
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  console.log(userId);
+
+  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const prisma = new PrismaClient();
 
   const profile = await prisma.user.upsert({
     create: {
-      externalId: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      externalId: userId,
     },
     update: {
       updatedAt: new Date(),
       lastOnlineAt: new Date(),
     },
-    where: { externalId: user.id }
+    where: { externalId: userId }
   });
 
   return NextResponse.json(profile);
