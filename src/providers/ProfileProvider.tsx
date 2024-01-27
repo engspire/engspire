@@ -19,7 +19,7 @@ export default function ProfileProvider({ children }: { children: ReactNode; }) 
   const { data: profile, isLoading, error } = useQuery({
     queryKey: ["userProfile"], queryFn: async () => {
       try {
-        const { data } = await apiClient(await getToken()).get('/me');
+        const { data } = await apiClient(await getToken()).patch('/me');
 
         return data;
       } catch (error) {

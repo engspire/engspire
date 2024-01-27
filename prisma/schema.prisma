@@ -9,8 +9,20 @@ datasource db {
 }
 
 model User {
-  id         Int     @id @default(autoincrement())
-  externalId String  @unique
-  email      String  @unique
-  name       String?
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  externalId   String   @unique
+  firstName    String?
+  lastName     String?
+  role         UserRole @default(GUEST)
+  lastOnlineAt DateTime @default(now())
+}
+
+enum UserRole {
+  GUEST
+  USER
+  MANAGER
+  ADMIN
+  SUPERADMIN
 }
