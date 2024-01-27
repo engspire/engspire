@@ -13,7 +13,7 @@ export default function Footer() {
                     <span className="footer-title">Services</span>
                     <Link href="/courses" className="link link-hover">🏫 English Courses</Link>
                     <Link href="https://app.engspire.lk" target="_blank" className="link link-hover">🧿 Engspire Web App</Link>
-                    <Link href="https://engreesi.engspire.lk" target="_blank" className="link link-hover">📚 Engreesi Web App</Link>
+                    <Link href="https://engreesi.com" target="_blank" className="link link-hover">📚 Engreesi Web App</Link>
                     <Link href="https://youtube.com/@engspire" target="_blank" className="link link-hover">📺 YouTube Videos</Link>
                 </div>
                 <div>

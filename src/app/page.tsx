@@ -26,7 +26,7 @@ export default function Home() {
           <h1 className="text-4xl font-semibold">Engreesi <span className="font-light">Web App</span></h1>
           <p className="pt-6">Engreesi Web App project makes English learning accessible to everyone in Sri Lanka. It gives you access to hundreds of free lessons and articles.</p>
           <p className="py-6">මේ ඇප් එකෙන් ලංකාවේ ඕනෑම කෙනෙක්ට ඉංග්‍රීසි පාඩම් නොමිලේ ඉගෙනගන්න පුළුවන්.</p>
-          <a href="https://engreesi.engspire.lk" target='_blank' className="btn btn-accent"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <a href="https://engreesi.com" target='_blank' className="btn btn-accent"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
           </svg>Open App</a>
         </div>

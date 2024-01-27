@@ -8,7 +8,7 @@ export default function MoreActionsButton() {
       </button>
       <ul tabIndex={0} className="dropdown-content  bg-neutral text-neutral-content z-[1] menu p-2 shadow rounded-box w-full min-w-[200px] justify-center">
         <li><a className='justify-center lg:justify-start' href="/courses"><span className='hidden lg:inline'>🧿</span>Join a course</a></li>
-        <li><a className='justify-center lg:justify-start' href="https://engreesi.engspire.lk" target='_blank'><span className='hidden lg:inline'>📚</span>Explore lessons</a></li>
+        <li><a className='justify-center lg:justify-start' href="https://engreesi.com" target='_blank'><span className='hidden lg:inline'>📚</span>Explore lessons</a></li>
         <li><a className='justify-center lg:justify-start' href="/payments"><span className='hidden lg:inline'>🪙</span>Make a payment</a></li>
         <li><a className='justify-center lg:justify-start' href="/support"><span className='hidden lg:inline'>😟</span>Request support</a></li>
       </ul>
