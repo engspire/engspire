@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --port=3000",
     "build": "next build",
+    "db:push": "dotenv -e .env.local prisma db push",
     "firebase:serve": "pnpm build && firebase serve --only hosting",
     "firebase:deploy": "pnpm build && firebase deploy --only hosting",
     "start": "next start",
@@ -12,6 +13,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.25.3",
+    "@prisma/client": "5.8.1",
     "@tanstack/react-query": "^5.0.0",
     "@types/node": "20.8.3",
     "@types/react": "^18.2.25",
@@ -38,6 +40,8 @@
   "devDependencies": {
     "@types/uuid": "^9.0.5",
     "daisyui": "^3.9.2",
+    "dotenv-cli": "^7.3.0",
+    "prisma": "^5.8.1",
     "ts-node": "^10.9.1"
   }
 }
