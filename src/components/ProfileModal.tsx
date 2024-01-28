@@ -3,8 +3,8 @@ import ProfileForm from './ProfileForm';
 
 export default function ProfileModal() {
   return (
-    <dialog id="EditProfileModal" className="modal modal-top sm:modal-middle">
-      <div className="modal-box min-h-screen md:min-h-fit">
+    <dialog id="EditProfileModal" className="modal modal-top md:justify-center">
+      <div className="modal-box min-h-screen md:min-h-fit md:min-w-[540px]">
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}

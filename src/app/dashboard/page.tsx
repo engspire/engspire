@@ -29,8 +29,8 @@ export default function Dashboard() {
                         <MoreActionsButton />
                     </div>
                 )}
-                <ActivityHeatMap />
-                <RandomQuote />
+                {/* <ActivityHeatMap /> */}
+                {/* <RandomQuote /> */}
             </div>
             <div className="grid lg:w-[600px] p-4 lg:h-fit gap-4">
                 {width && width >= 1024 &&
