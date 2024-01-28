@@ -47,9 +47,9 @@ export default function MyCoursesTable({ records }: IMyCoursesTableProps) {
                   <li><a className='justify-start' href={"#open-course-calendar"}><span className='lg:inline'>🗓️</span>Open course calendar</a></li>
                 </ul>
               </div>
-              <a href={`#course-details/${record.course.id}`} className="text-left font-semibold ml-2 cursor-pointer hover:underline line-clamp-1" onClick={() => (document.getElementById(`CourseDetailsModal_${record.id}`) as HTMLDialogElement).showModal()}>
+              <label className="text-left font-semibold ml-2 cursor-pointer hover:underline line-clamp-1" onClick={() => (document.getElementById(`CourseDetailsModal_${record.id}`) as HTMLDialogElement).showModal()}>
                 {record.course.title}
-              </a>
+              </label>
             </td>
             {record.status && <td className='place-items-center'><span className={`badge badge-${getStatusColor(record.status)} badge-outline text-xs p-1`}>{record.status}</span></td>}
             <CourseDetailsModal data={record} />

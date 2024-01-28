@@ -22,7 +22,7 @@ export default function MyCoursesView() {
       {isLoading && <div className="min-h-[172px] max-w-sm grid place-items-center text-center"><span className="loading loading-bars loading-lg" ></span></div>}
       {courses?.coursesAsLearner && courses?.coursesAsLearner.length > 0 && (
         <div>
-          <h3 className="font-semibold mb-2">Courses as a Learner</h3>
+          <h3 className="font-semibold mb-2">Courses I&apos;m following 🧑🏻‍🎓</h3>
           <div className="grid gap-3">
             <MyCoursesTable records={courses?.coursesAsLearner ?? []} />
           </div>
@@ -30,7 +30,7 @@ export default function MyCoursesView() {
       )}
       {courses?.coursesAsTeacher && courses?.coursesAsTeacher.length > 0 && (
         <div>
-          <h3 className="font-semibold mb-2">Courses as a Teacher</h3>
+          <h3 className="font-semibold mb-2">Courses I&apos;m teaching 🧑🏻‍🏫</h3>
           <div className="grid gap-3">
             <MyCoursesTable records={courses?.coursesAsTeacher ?? []} />
           </div>
