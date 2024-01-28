@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { courseIntakes, courses } from "../.includes/courses";
 
-const beginnersGrammarCourse = courses.get("beginnersGrammar");
+const beginnersGrammarCourse = courses.get("beginners-grammar");
 const beginnersGrammarCourseIntake = beginnersGrammarCourse && courseIntakes.get(beginnersGrammarCourse.nextBatchCode.toString());
 
-const pronunciationTraining = courses.get("pronunciationTraining");
+const pronunciationTraining = courses.get("pronunciation-training");
 const pronunciationTrainingIntake = pronunciationTraining && courseIntakes.get(pronunciationTraining.nextBatchCode.toString());
 
-const spokenEnglish = courses.get("spokenEnglish");
+const spokenEnglish = courses.get("spoken-english");
 const spokenEnglishIntake = spokenEnglish && courseIntakes.get(spokenEnglish.nextBatchCode.toString());
 
 type CourseCardsProps = {

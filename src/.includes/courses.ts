@@ -1,9 +1,9 @@
 import { addWeeks, addYears, isBefore, parseISO } from "date-fns";
 
 export const courseLabels = {
-    beginnersGrammar: "beginnersGrammar",
-    pronunciationTraining: "pronunciationTraining",
-    spokenEnglish: "spokenEnglish",
+    beginnersGrammar: "beginners-grammar",
+    pronunciationTraining: "pronunciation-training",
+    spokenEnglish: "spoken-english",
 } as const;
 
 export type ICourseLabel = (typeof courseLabels)[keyof typeof courseLabels];
@@ -57,21 +57,21 @@ export type IPaymentInstallment = {
 
 export const courses = new Map<ICourseLabel, ICourse>();
 
-courses.set("beginnersGrammar", {
+courses.set("beginners-grammar", {
     title: "Beginners' Grammar",
     route: "/courses/beginners-grammar",
     nextBatchCode: 240168,
     startDate: parseISO("2024-01-12"),
 });
 
-courses.set("pronunciationTraining", {
+courses.set("pronunciation-training", {
     title: "Pronunciation Training",
     route: "/courses/pronunciation-training",
     nextBatchCode: 240112,
     // startDate: parseISO("2024-01-30"),
 });
 
-courses.set("spokenEnglish", {
+courses.set("spoken-english", {
     title: "Spoken English Course",
     route: "/courses/spoken-english",
     nextBatchCode: 240156,
@@ -81,11 +81,11 @@ courses.set("spokenEnglish", {
 export const courseIntakes = new Map<string, ICourseIntake>();
 
 const beginnersGrammarIntake = {
-    ...(courses.get("beginnersGrammar") as ICourse)
+    ...(courses.get("beginners-grammar") as ICourse)
 };
 courseIntakes.set(beginnersGrammarIntake.nextBatchCode.toString(), {
     ...beginnersGrammarIntake,
-    courseLabel: "beginnersGrammar",
+    courseLabel: "beginners-grammar",
     status: beginnersGrammarIntake.startDate && isBefore(beginnersGrammarIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
     canRegister: true,
     // registrationUrl: `/register/${beginnersGrammarIntake.nextBatchCode}`,
@@ -112,11 +112,11 @@ courseIntakes.set(beginnersGrammarIntake.nextBatchCode.toString(), {
 });
 
 const pronunciationTrainingIntake = {
-    ...(courses.get("pronunciationTraining") as ICourse)
+    ...(courses.get("pronunciation-training") as ICourse)
 };
 courseIntakes.set(pronunciationTrainingIntake.nextBatchCode.toString(), {
     ...pronunciationTrainingIntake,
-    courseLabel: "pronunciationTraining",
+    courseLabel: "pronunciation-training",
     status: pronunciationTrainingIntake.startDate && isBefore(pronunciationTrainingIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
     canRegister: false,
     // registrationUrl: `/register/${pronunciationTrainingIntake.nextBatchCode}`,
@@ -136,11 +136,11 @@ courseIntakes.set(pronunciationTrainingIntake.nextBatchCode.toString(), {
 });
 
 const spokenEnglishIntake = {
-    ...(courses.get("spokenEnglish") as ICourse)
+    ...(courses.get("spoken-english") as ICourse)
 };
 courseIntakes.set(spokenEnglishIntake.nextBatchCode.toString(), {
     ...spokenEnglishIntake,
-    courseLabel: "spokenEnglish",
+    courseLabel: "spoken-english",
     status: spokenEnglishIntake.startDate && isBefore(spokenEnglishIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
     canRegister: true,
     // registrationUrl: `/register/${spokenEnglishIntake.nextBatchCode}`,

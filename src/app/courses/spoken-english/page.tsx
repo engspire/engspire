@@ -1,11 +1,10 @@
-import IntakeCard from '@/components/IntakeCard';
+import CourseSignUpFlow from '@/components/CourseSignUpFlow';
 import { format } from "date-fns";
 import { Metadata } from "next";
 import Image from "next/image";
 import { courseIntakes, courses } from "../../../.includes/courses";
 
-
-const course = courses.get("spokenEnglish");
+const course = courses.get("spoken-english");
 const intake = course && courseIntakes.get(course.nextBatchCode.toString());
 
 export const metadata: Metadata = {
@@ -18,7 +17,7 @@ export default function SpokenEnglishCourse() {
         <div>
             <h1 className="text-3xl font-bold text-center block lg:hidden">{course?.title}</h1>
             <div className="flex flex-col gap-4 p-8 justify-center place-items-center lg:place-items-start lg:gap-16 lg:flex-row-reverse">
-                {intake && <IntakeCard data={intake} showJoin />}
+                {intake && <CourseSignUpFlow />}
                 <div className="text-center lg:text-left sm:max-w-sm">
                     <h1 className="text-3xl font-bold text-center hidden lg:block lg:text-left">{course?.title}</h1>
                     <div className="stack">
@@ -32,7 +31,7 @@ export default function SpokenEnglishCourse() {
                                 <div className="mb-6 alert glass text-sm">
                                     <p>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current inline w-6 h-6 mr-1.5"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                        <span>{intake.status === "next intake" ? "Next intake starts" : "Ongoing batch started"} on {format(intake.startDate, "PPP")}</span>
+                                        {intake.startDate && <span>{intake.status === "next intake" ? "Next intake starts" : "Ongoing batch started"} on {format(intake.startDate, "PPP")}</span>}
                                     </p>
                                 </div>
                             )}

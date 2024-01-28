@@ -5,7 +5,7 @@ import Image from "next/image";
 import { courseIntakes, courses } from "../../../.includes/courses";
 
 
-const course = courses.get("pronunciationTraining");
+const course = courses.get("pronunciation-training");
 const intake = course && courseIntakes.get(course.nextBatchCode.toString());
 
 export const metadata: Metadata = {

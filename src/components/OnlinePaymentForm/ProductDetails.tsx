@@ -44,9 +44,9 @@ export default function ProductDetails({ updateFields }: ProductDetailsProps) {
       </div>
       <select className="select select-bordered w-full max-w-xs" onChange={e => handleCourseChange(e)}>
         <option value={"Select course..."} disabled selected>Select an option...</option>
-        <option value={courseLabels.beginnersGrammar}>{courses.get('beginnersGrammar')?.title}</option>
-        <option value={courseLabels.pronunciationTraining}>{courses.get('pronunciationTraining')?.title}</option>
-        <option value={courseLabels.spokenEnglish}>{courses.get('spokenEnglish')?.title}</option>
+        <option value={courseLabels.beginnersGrammar}>{courses.get("beginners-grammar")?.title}</option>
+        <option value={courseLabels.pronunciationTraining}>{courses.get("pronunciation-training")?.title}</option>
+        <option value={courseLabels.spokenEnglish}>{courses.get("spoken-english")?.title}</option>
       </select>
       <div className="my-4 flex justify-center">
         {intakeData && <IntakeCard data={intakeData} />}

@@ -5,13 +5,13 @@ import { DayPicker } from "react-day-picker";
 import CourseCards from "@/components/CourseCards";
 import { courseIntakes, courses } from "../../.includes/courses";
 
-const beginnersGrammarCourse = courses.get("beginnersGrammar");
+const beginnersGrammarCourse = courses.get("beginners-grammar");
 const beginnersGrammarCourseIntake = beginnersGrammarCourse && courseIntakes.get(beginnersGrammarCourse.nextBatchCode.toString());
 
-const pronunciationTraining = courses.get("pronunciationTraining");
+const pronunciationTraining = courses.get("pronunciation-training");
 const pronunciationTrainingIntake = pronunciationTraining && courseIntakes.get(pronunciationTraining.nextBatchCode.toString());
 
-const spokenEnglish = courses.get("spokenEnglish");
+const spokenEnglish = courses.get("spoken-english");
 const spokenEnglishIntake = spokenEnglish && courseIntakes.get(spokenEnglish.nextBatchCode.toString());
 
 export default function Register() {
