@@ -8,13 +8,13 @@ export default function CompleteProfileAlert() {
         <h2 className="font-bold text-base text-accent line-clamp-1">⚠️ Your profile is incomplete.</h2>
         <div className="flex flex-col gap-1">
           <div className="px-2 my-2">
-            <p className='text-xs'>You need to submit your details before using this platform.</p>
+            <p className='text-xs'>You need to complete your profile to use this platform.</p>
           </div>
           <a href='#complete-profile' className="btn btn-sm btn-accent" onClick={() => (document.getElementById('CompleteProfileModal') as HTMLDialogElement).showModal()}>Complete profile</a>
         </div>
       </div>
-      <dialog id="CompleteProfileModal" className="modal modal-top sm:modal-middle">
-        <div className="modal-box min-h-screen md:min-h-fit">
+      <dialog id="CompleteProfileModal" className="modal modal-top md:justify-center">
+        <div className="modal-box min-h-screen md:min-h-fit md:min-w-[540px]">
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}

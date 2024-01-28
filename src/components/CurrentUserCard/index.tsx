@@ -17,9 +17,9 @@ export default function CurrentUserCard() {
           <UserImage imageUrl={user?.imageUrl ?? "/user-image.webp"} />
         </div>
         <div className="p-2">
-          <h2 className="font-bold text-base text-secondary line-clamp-1">{[profile?.firstName, profile?.lastName].join(" ")}</h2>
+          <h2 className="font-bold text-base text-secondary line-clamp-1">{profile?.firstName ? [profile?.firstName, profile?.lastName].join(" ") : user?.fullName}</h2>
           <div className="flex flex-col gap-1">
-            <p className="text-xs">{profile?.username ?? profile?.emailAddress}</p>
+            <p className="text-xs">{(profile?.emailAddress || profile?.username) ? profile?.username || profile?.emailAddress : user?.username || user?.emailAddresses[0].emailAddress}</p>
             <p className="text-xs font-semibold text-accent">100 followers, 100 following</p>
             <div className="flex flex-row gap-3">
               <p className="text-xs font-semibold text-success">⭐ 100</p>
@@ -29,7 +29,7 @@ export default function CurrentUserCard() {
           </div>
         </div>
       </div>
-      {!isLoading && (profile && hasEmailAddress ? <EditProfileButton /> : <CompleteProfileAlert />)}
+      {!isLoading && (profile && hasEmailAddress && profile?.firstName ? <EditProfileButton /> : <CompleteProfileAlert />)}
     </>
   );
 }

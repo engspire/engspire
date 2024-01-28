@@ -2,11 +2,12 @@
 'use client';
 import { apiClient } from '@/apiClient';
 import useMultistepForm from '@/hooks/multistep-form';
-import { useAuth } from '@clerk/nextjs';
+import { useAuth, useUser } from '@clerk/nextjs';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormEvent, useState } from 'react';
 import { TimeSlot } from './AvailableTimeSlotsForm';
 import ContactDetailsForm from './ContactDetailsForm';
+import { useProfile } from '@/providers/ProfileProvider';
 
 type FormData = {
   firstName: string,
@@ -34,9 +35,16 @@ type CompleteProfileFormProps = {
 };
 
 export default function ProfileForm({ header }: CompleteProfileFormProps) {
-  const [data, setData] = useState({} as FormData);
+  const { user } = useUser();
+  
+  const { profile} = useProfile();
 
-  const {} = data;
+  const [data, setData] = useState({
+    firstName: profile?.firstName ?? user?.firstName,
+    lastName: profile?.lastName ?? user?.lastName,
+    emailAddress: profile?.emailAddress ?? user?.emailAddresses[0]?.emailAddress,
+    phoneNumber: profile?.phoneNumber ?? user?.phoneNumbers[0]?.phoneNumber,
+  } as FormData);
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
@@ -57,7 +65,7 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
 
   const createProfileMutation = useMutation({
     mutationFn: async (profileData) => {
-      return apiClient(await getToken()).patch("/v1/user", profileData);
+      return apiClient(await getToken()).put("/v1/me", profileData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["userProfile"] });

@@ -20,3 +20,25 @@ export async function PATCH() {
 
   return NextResponse.json(profile);
 }
+
+export async function PUT(request: Request) {
+  const { userId } = auth();
+
+  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const body = await request.json();
+
+  const user = await prisma.user.update({
+    where: { externalId: userId },
+    data: {
+      updatedAt: new Date(),
+      externalId: userId,
+      firstName: body?.firstName,
+      lastName: body?.lastName,
+      emailAddress: body?.emailAddress,
+      phoneNumber: body?.phoneNumber,
+    },
+  });
+
+  return NextResponse.json(user);
+}
