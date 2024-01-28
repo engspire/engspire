@@ -25,12 +25,6 @@ export default function MyCoursesTable({ records }: IMyCoursesTableProps) {
 
   return (
     <table className="table md:max-w-sm bg-base-100 shadow-xl">
-      <thead>
-        <tr>
-          <td className='pl-[58px]'>Course Title</td>
-          {records[0].status && <td className=''>Status</td>}
-        </tr>
-      </thead>
       <tbody>
         {records.length > 0 ? records.map((record, i) => (
           <tr key={Math.random()}>
@@ -38,7 +32,7 @@ export default function MyCoursesTable({ records }: IMyCoursesTableProps) {
               <div className="dropdown">
                 <button className="btn btn-ghost btn-xs btn-circle" tabIndex={0}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                   </svg>
                 </button>
                 <ul tabIndex={0} className="dropdown-content bg-neutral text-neutral-content z-[1] menu p-2 shadow rounded-box min-w-[240px] justify-center">
@@ -51,7 +45,7 @@ export default function MyCoursesTable({ records }: IMyCoursesTableProps) {
                 {record.course.title}
               </label>
             </td>
-            {record.status && <td className='place-items-center'><span className={`badge badge-${getStatusColor(record.status)} badge-outline text-xs p-1`}>{record.status}</span></td>}
+            {record.status && <td className='place-items-center text-right'><span className={`badge badge-${getStatusColor(record.status)} badge-outline text-xs p-1`}>{record.status}</span></td>}
             <CourseDetailsModal data={record} />
           </tr>
         )) : (

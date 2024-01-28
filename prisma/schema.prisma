@@ -21,8 +21,10 @@ model User {
   emailAddress     String?
   phoneNumber      String?
   Course           Course[]
-  Courses_Learners Courses_Learners[]
+  Classs           Class[]
   Courses_Teachers Courses_Teachers[]
+  Classes_Learners Classes_Learners[]
+  Classes_Teachers Classes_Teachers[]
   paymentsPaid     Payment[]          @relation("PaymentsPaid")
   paymentsReceived Payment[]          @relation("PaymentsReceived")
   Payment          Payment[]
@@ -80,12 +82,11 @@ model Course {
   classDaySunday    Boolean            @default(false)
   classStartTime    String?
   classEndTime      String?
-  courseStartDate   DateTime?
-  courseEndDate     DateTime?
+  durationValue     Int?
+  durationUnit      DurationUnit?
   courseFeeTotal    Float              @default(0)
   courseFeePartial  Float              @default(0)
   courseFeeCurrency Currency           @default(LKR)
-  learners          Courses_Learners[]
   teachers          Courses_Teachers[]
   owner             User               @relation(fields: [ownerId], references: [id])
   ownerId           Int
@@ -93,26 +94,69 @@ model Course {
   negativeScore     Int                @default(0)
 }
 
-model Courses_Learners {
-  id            Int                   @id @default(autoincrement())
-  createdAt     DateTime              @default(now())
-  enrollMonth   String?
-  updatedAt     DateTime?             @updatedAt
-  course        Course                @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId      Int
-  learner       User                  @relation(fields: [learnerId], references: [id], onDelete: Cascade)
-  learnerId     Int
-  status        Course_Learner_Status @default(PENDING)
-  paymentStatus PaymentStatus         @default(PENDING)
+model Courses_Teachers {
+  id        Int            @id @default(autoincrement())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime?      @updatedAt
+  course    Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  teacher   User           @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  status    Teacher_Status @default(PENDING)
+  courseId  Int
+  teacherId Int
 }
 
-model Courses_Teachers {
-  id        Int                   @id @default(autoincrement())
-  createdAt DateTime              @default(now())
-  updatedAt DateTime?             @updatedAt
-  course    Course                @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  teacher   User                  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
-  status    Course_Teacher_Status @default(PENDING)
+model Class {
+  id                Int                @id @default(autoincrement())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime?          @updatedAt
+  title             String
+  description       String?
+  metadata          Json?
+  whatsAppUrl       String?
+  meetingUrl        String?
+  classroomUrl      String?
+  classDayMonday    Boolean            @default(false)
+  classDayTuesday   Boolean            @default(false)
+  classDayWednesday Boolean            @default(false)
+  classDayThursday  Boolean            @default(false)
+  classDayFriday    Boolean            @default(false)
+  classDaySaturday  Boolean            @default(false)
+  classDaySunday    Boolean            @default(false)
+  classStartTime    String?
+  classEndTime      String?
+  courseStartDate   DateTime?
+  courseEndDate     DateTime?
+  courseFeeTotal    Float              @default(0)
+  courseFeePartial  Float              @default(0)
+  courseFeeCurrency Currency           @default(LKR)
+  learners          Classes_Learners[]
+  teachers          Classes_Teachers[]
+  owner             User               @relation(fields: [ownerId], references: [id])
+  ownerId           Int
+  positiveScore     Int                @default(0)
+  negativeScore     Int                @default(0)
+}
+
+model Classes_Learners {
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  enrollMonth   String?
+  updatedAt     DateTime?      @updatedAt
+  course        Class          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId      Int
+  learner       User           @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  learnerId     Int
+  status        Learner_Status @default(PENDING)
+  paymentStatus PaymentStatus  @default(PENDING)
+}
+
+model Classes_Teachers {
+  id        Int            @id @default(autoincrement())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime?      @updatedAt
+  course    Class          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  teacher   User           @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  status    Teacher_Status @default(PENDING)
   courseId  Int
   teacherId Int
 }
@@ -153,7 +197,7 @@ enum UserRole {
   SUPERADMIN
 }
 
-enum Course_Learner_Status {
+enum Learner_Status {
   PENDING
   ACTIVE
   COMPLETED
@@ -161,7 +205,7 @@ enum Course_Learner_Status {
   REJECTED
 }
 
-enum Course_Teacher_Status {
+enum Teacher_Status {
   PENDING
   ACTIVE
   COMPLETED
@@ -196,4 +240,13 @@ enum PaymentMethod {
   PAYAPP
   HNB
   FRIMI
+}
+
+enum DurationUnit {
+  MINUTES
+  HOURS
+  DAYS
+  WEEKS
+  MONTHS
+  YEARS
 }

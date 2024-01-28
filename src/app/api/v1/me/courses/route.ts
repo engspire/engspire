@@ -7,7 +7,7 @@ export async function GET() {
 
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const coursesAsLearner = await prisma.courses_Learners.findMany({
+  const coursesAsLearner = await prisma.classes_Learners.findMany({
     include: { course: true },
     where: { learner: { externalId: userId } }
   });
