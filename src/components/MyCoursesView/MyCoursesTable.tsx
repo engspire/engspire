@@ -36,13 +36,13 @@ export default function MyCoursesTable({ records }: IMyCoursesTableProps) {
                   </svg>
                 </button>
                 <ul tabIndex={0} className="dropdown-content bg-neutral text-neutral-content z-[1] menu p-2 shadow rounded-box min-w-[240px] justify-center">
-                  <li><a className='justify-start' href={record.course.classroomUrl ?? ""} target='_blank'><span className='lg:inline'>🧑🏻‍🏫</span>Open Google Classroom</a></li>
-                  <li><a className='justify-start' href={record.course.whatsAppUrl ?? ""} target='_blank'><span className='lg:inline'>🗨️</span>Open WhatsApp channel</a></li>
+                  <li><a className='justify-start' href={record.batch.classroomUrl ?? ""} target='_blank'><span className='lg:inline'>🧑🏻‍🏫</span>Open Google Classroom</a></li>
+                  <li><a className='justify-start' href={record.batch.course.whatsAppUrl ?? ""} target='_blank'><span className='lg:inline'>🗨️</span>Open WhatsApp channel</a></li>
                   <li><a className='justify-start' href={"#open-course-calendar"}><span className='lg:inline'>🗓️</span>Open course calendar</a></li>
                 </ul>
               </div>
               <label className="text-left font-semibold ml-2 cursor-pointer hover:underline line-clamp-1" onClick={() => (document.getElementById(`CourseDetailsModal_${record.id}`) as HTMLDialogElement).showModal()}>
-                {record.course.title}
+                {record.batch.title}
               </label>
             </td>
             {record.status && <td className='place-items-center text-right'><span className={`badge badge-${getStatusColor(record.status)} badge-outline text-xs p-1`}>{record.status}</span></td>}

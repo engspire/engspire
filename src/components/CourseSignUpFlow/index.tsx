@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-key */
 'use client';
+import { ICourseLabel, courseIntakes, courses } from '@/.includes/courses';
 import useMultistepForm from '@/hooks/multistep-form';
+import { usePathname } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
+import { v4 as generateUuid } from 'uuid';
 import ContactDetails from './ContactDetails';
 import ProductDetails from './CourseDetails';
-import TransactionSummary from './TransactionSummary';
-import { usePathname } from 'next/navigation';
-import { ICourseLabel, courseIntakes, courses } from '@/.includes/courses';
-import { v4 as generateUuid } from 'uuid';
+import SignUpSummary from './SignUpSummary';
 
 declare global {
   interface Window {
@@ -25,6 +25,7 @@ type FormData = {
   productName: string,
   amount: number,
   currency: string,
+  batchCode: string,
 };
 
 type CourseSignUpFlowProps = {};
@@ -54,14 +55,19 @@ export default function CourseSignUpFlow({}: CourseSignUpFlowProps) {
       return {
         ...prev,
         ...fields,
-      };
+        orderId: orderId,
+        currency: currency,
+        batchCode: intakeData?.batchCode,
+        productName: intakeData?.title,
+      } as any;
     });
   }
 
   const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
     <ProductDetails {...data} updateFields={updateFields} />,
     <ContactDetails {...data} updateFields={updateFields} />,
-    <TransactionSummary {...data} updateFields={updateFields} />,
+    <SignUpSummary {...data} updateFields={updateFields} />,
+    // <PaymentStep {...data} updateFields={updateFields} />,
   ]);
 
   const sandbox = process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === "true";
@@ -119,7 +125,7 @@ export default function CourseSignUpFlow({}: CourseSignUpFlowProps) {
     if (!isLastStep) nextStep();
     else {
       console.log("CourseSignUpFlow Data:", data); // Do something with the data
-      payWithPayHere();
+      // payWithPayHere();
     }
   }
 

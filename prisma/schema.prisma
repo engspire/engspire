@@ -21,10 +21,10 @@ model User {
   emailAddress     String?
   phoneNumber      String?
   Course           Course[]
-  Classs           Class[]
+  Batch            Batch[]
   Courses_Teachers Courses_Teachers[]
-  Classes_Learners Classes_Learners[]
-  Classes_Teachers Classes_Teachers[]
+  Batch_Learners   Batch_Learners[]
+  Batch_Teachers   Batch_Teachers[]
   paymentsPaid     Payment[]          @relation("PaymentsPaid")
   paymentsReceived Payment[]          @relation("PaymentsReceived")
   Payment          Payment[]
@@ -92,6 +92,7 @@ model Course {
   ownerId           Int
   positiveScore     Int                @default(0)
   negativeScore     Int                @default(0)
+  Batch             Batch[]
 }
 
 model Courses_Teachers {
@@ -105,56 +106,59 @@ model Courses_Teachers {
   teacherId Int
 }
 
-model Class {
-  id                Int                @id @default(autoincrement())
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime?          @updatedAt
+model Batch {
+  id                Int              @id @default(autoincrement())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime?        @updatedAt
+  course            Course           @relation(fields: [courseId], references: [id])
+  courseId          Int
+  batchCode         String
   title             String
   description       String?
   metadata          Json?
   whatsAppUrl       String?
   meetingUrl        String?
   classroomUrl      String?
-  classDayMonday    Boolean            @default(false)
-  classDayTuesday   Boolean            @default(false)
-  classDayWednesday Boolean            @default(false)
-  classDayThursday  Boolean            @default(false)
-  classDayFriday    Boolean            @default(false)
-  classDaySaturday  Boolean            @default(false)
-  classDaySunday    Boolean            @default(false)
+  classDayMonday    Boolean          @default(false)
+  classDayTuesday   Boolean          @default(false)
+  classDayWednesday Boolean          @default(false)
+  classDayThursday  Boolean          @default(false)
+  classDayFriday    Boolean          @default(false)
+  classDaySaturday  Boolean          @default(false)
+  classDaySunday    Boolean          @default(false)
   classStartTime    String?
   classEndTime      String?
   courseStartDate   DateTime?
   courseEndDate     DateTime?
-  courseFeeTotal    Float              @default(0)
-  courseFeePartial  Float              @default(0)
-  courseFeeCurrency Currency           @default(LKR)
-  learners          Classes_Learners[]
-  teachers          Classes_Teachers[]
-  owner             User               @relation(fields: [ownerId], references: [id])
+  courseFeeTotal    Float            @default(0)
+  courseFeePartial  Float            @default(0)
+  courseFeeCurrency Currency         @default(LKR)
+  learners          Batch_Learners[]
+  teachers          Batch_Teachers[]
+  owner             User             @relation(fields: [ownerId], references: [id])
   ownerId           Int
-  positiveScore     Int                @default(0)
-  negativeScore     Int                @default(0)
+  positiveScore     Int              @default(0)
+  negativeScore     Int              @default(0)
 }
 
-model Classes_Learners {
+model Batch_Learners {
   id            Int            @id @default(autoincrement())
   createdAt     DateTime       @default(now())
   enrollMonth   String?
   updatedAt     DateTime?      @updatedAt
-  course        Class          @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId      Int
+  batch         Batch          @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  batchId       Int
   learner       User           @relation(fields: [learnerId], references: [id], onDelete: Cascade)
   learnerId     Int
   status        Learner_Status @default(PENDING)
   paymentStatus PaymentStatus  @default(PENDING)
 }
 
-model Classes_Teachers {
+model Batch_Teachers {
   id        Int            @id @default(autoincrement())
   createdAt DateTime       @default(now())
   updatedAt DateTime?      @updatedAt
-  course    Class          @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course    Batch          @relation(fields: [courseId], references: [id], onDelete: Cascade)
   teacher   User           @relation(fields: [teacherId], references: [id], onDelete: Cascade)
   status    Teacher_Status @default(PENDING)
   courseId  Int
