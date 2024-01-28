@@ -27,11 +27,11 @@ export default function IntakeCard({ data, showJoin = false }: IIntakeCardProps)
         <div>
           <p className="text-sm">Class Day(s)</p>
           <div className="flex space-x-2 py-2">
-            <div className={data.classDays.Monday ? "btn btn-xs btn-circle btn-primary" : data.courseLabel === courseLabels.spokenEnglish ? "btn btn-xs btn-circle btn-info" : "btn btn-xs btn-circle btn-ghost btn-outline"}>M</div>
+            <div className={data.classDays.Monday ? "btn btn-xs btn-circle btn-primary" : data.courseLabel === courseLabels.spokenEnglish ? "btn btn-xs btn-circle btn-success" : "btn btn-xs btn-circle btn-ghost btn-outline"}>M</div>
             <div className={data.classDays.Tuesday ? "btn btn-xs btn-circle btn-primary" : data.courseLabel === courseLabels.spokenEnglish ? "btn btn-xs btn-circle btn-info" : "btn btn-xs btn-circle btn-ghost btn-outline"}>T</div>
             <div className={data.classDays.Wednesday ? "btn btn-xs btn-circle btn-primary" : data.courseLabel === courseLabels.spokenEnglish ? "btn btn-xs btn-circle btn-info" : "btn btn-xs btn-circle btn-ghost btn-outline"}>W</div>
             <div className={data.classDays.Thursday ? "btn btn-xs btn-circle btn-primary" : data.courseLabel === courseLabels.spokenEnglish ? "btn btn-xs btn-circle btn-info" : "btn btn-xs btn-circle btn-ghost btn-outline"}>T</div>
-            <div className={data.classDays.Friday ? "btn btn-xs btn-circle btn-primary" : data.courseLabel === courseLabels.spokenEnglish ? "btn btn-xs btn-circle btn-info" : "btn btn-xs btn-circle btn-ghost btn-outline"}>F</div>
+            <div className={data.classDays.Friday ? "btn btn-xs btn-circle btn-primary" : data.courseLabel === courseLabels.spokenEnglish ? "btn btn-xs btn-circle btn-success" : "btn btn-xs btn-circle btn-ghost btn-outline"}>F</div>
             <div className={data.classDays.Saturday ? "btn btn-xs btn-circle btn-primary" : "btn btn-xs btn-circle btn-ghost btn-outline"}>S</div>
             <div className={data.classDays.Sunday ? "btn btn-xs btn-circle btn-primary" : "btn btn-xs btn-circle btn-ghost btn-outline text-red-500"}>S</div>
           </div>
