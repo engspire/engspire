@@ -1,6 +1,8 @@
 import { ReactElement, useState } from 'react';
 
 export default function useMultistepForm(steps: ReactElement[]) {
+  const [isLoading, setIsLoading] = useState(false);
+  
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   function nextStep() {
@@ -28,6 +30,8 @@ export default function useMultistepForm(steps: ReactElement[]) {
   }
 
   return {
+    isLoading,
+    setIsLoading,
     steps,
     currentStepIndex,
     currentStep: steps[currentStepIndex],

@@ -47,7 +47,7 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
     });
   }
 
-  const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
+  const { isLoading, setIsLoading, steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
     <ContactDetailsForm {...data} updateFields={updateFields} />,
   ]);
 
@@ -61,7 +61,16 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["userProfile"] });
+      setTimeout(() => {
+        (document.getElementById('EditProfileModal') as HTMLDialogElement).close();
+      }, 500);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     },
+    onMutate: () => {
+      setIsLoading(true);
+    }
   });
 
   function onSubmit(event: FormEvent) {
@@ -83,7 +92,7 @@ export default function ProfileForm({ header }: CompleteProfileFormProps) {
       <form onSubmit={onSubmit}>
         <div>{currentStep}</div>
         <div className="form-control mt-6">
-          <button type='submit' className='btn btn-primary my-2' disabled={false}>{!isLastStep ? 'Next' : 'Submit'}</button>
+          <button type='submit' className='btn btn-primary my-2' disabled={false}>{!isLastStep ? 'Next' : isLoading ? <span className="loading loading-bars"></span> : 'Submit'}</button>
           {!isFirstStep && <button type='button' className='btn my-2' onClick={previousStep}>Back</button>}
         </div>
       </form>

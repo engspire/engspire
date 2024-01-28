@@ -36,7 +36,7 @@ export default function ContactDetailsForm({ firstName, lastName, emailAddress, 
         <label className="label">
           <span className="label-text">Email address</span>
         </label>
-        <input type="text" placeholder={profile?.emailAddress ?? "kasunudaharana@gmail.com"} className="input input-bordered" value={emailAddress} disabled={profile?.emailAddress ? true : false} onChange={e => updateFields({ emailAddress: e.target.value })} />
+        <input type="text" placeholder="kasunudaharana@gmail.com" className="input input-bordered" value={emailAddress ?? profile?.emailAddress} onChange={e => updateFields({ emailAddress: e.target.value })} />
       </div>
       <div className="form-control">
         <label className="label">

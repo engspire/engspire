@@ -11,7 +11,7 @@ export default function ProfileModal() {
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
         </div>
-        <ProfileForm header="Edit profile and settings" />
+        <ProfileForm header="Edit my profile" />
       </div>
     </dialog>
   );
