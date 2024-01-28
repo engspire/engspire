@@ -10,8 +10,9 @@ export default function MyCoursesView() {
   const { profile } = useProfile();
 
   const { data: courses, isLoading } = useQuery({
-    queryKey: ["payments"], queryFn: async () => {
-      const { data } = await apiClient(await getToken()).get(`/users/${profile?.id}/courses?limit=5`);
+    queryKey: ["courses"], queryFn: async () => {
+      const { data } = await apiClient(await getToken()).get(`/v1/me/courses`);
+      console.log(data);
       return data;
     }
   });
