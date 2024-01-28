@@ -7,7 +7,7 @@ type ICourseDetailsModal = {
 
 export default function CourseDetailsModal({ data }: ICourseDetailsModal) {
   return (
-    <dialog id={`CourseDetailsModal_${data.id}`} className="modal modal-top md:modal-middle">
+    <dialog id={`CourseDetailsModal_${data.id}`} className="modal modal-top justify-center">
       <div className="modal-box max-h-screen md:max-h-fit md:min-w-[540px] md:max-w-fit">
         <div className="modal-action">
           <form method="dialog">
@@ -53,31 +53,17 @@ export default function CourseDetailsModal({ data }: ICourseDetailsModal) {
             </div>
           </div>
           {(data.course.classroomUrl || data.course.whatsAppUrl) && (
-            <div className="flex flex-col sm:flex-row gap-3 justify-center place-items-start">
+            <div className="flex flex-col gap-4">
               {data.course.classroomUrl && (
-                <div className="card w-full sm:w-60 shadow-xl bg-base-300">
-                  <figure className="px-0 pt-0">
-                    <img src="/GoogleClassroomIcon.png" alt="Google Classroom" />
-                  </figure>
-                  <div className="card-body items-center text-center pt-0 px-2 gap-4">
-                    <p>Your lesson notes and recordings are available here.</p>
-                    <div className="card-actions">
-                      <Link href={data.course.classroomUrl ?? ""} target='_blank' className="btn btn-primary">Open Google Classroom</Link>
-                    </div>
-                  </div>
+                <div className="join">
+                  <img src="/GoogleClassroomIconModified.png" alt="Google Classroom" className='h-[48px] mx-2' />
+                  <Link href={data.course.classroomUrl ?? ""} target='_blank' className="btn">Open Google Classroom</Link>
                 </div>
               )}
               {data.course.whatsAppUrl && (
-                <div className="card w-full sm:w-60 shadow-xl bg-base-300 place-items-center gap-4">
-                  <figure className="px-0 pt-4 w-32 h-32">
-                    <img src="/WhatsAppIcon.png" alt="Google Classroom" />
-                  </figure>
-                  <div className="card-body items-center text-center pt-0 px-2 gap-4">
-                    <p>You receive updates and announcement about the course via the official WhatsApp channel.</p>
-                    <div className="card-actions">
-                      <Link href={data.course.whatsAppUrl ?? ""} target='_blank' className="btn btn-primary">Open WhatsApp</Link>
-                    </div>
-                  </div>
+                <div className="join">
+                  <img src="/WhatsAppIcon.png" alt="Google Classroom" className="h-[48px] mx-2" />
+                  <Link href={data.course.whatsAppUrl ?? ""} target='_blank' className="btn">Open WhatsApp channel</Link>
                 </div>
               )}
             </div>
