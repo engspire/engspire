@@ -9,18 +9,141 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now())
-  externalId   String   @unique
-  username     String?  @unique
-  firstName    String?
-  lastName     String?
-  role         UserRole @default(GUEST)
-  lastOnlineAt DateTime @default(now())
-  emailAddress String?
-  phoneNumber  String?
+  id               Int                @id @default(autoincrement())
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now())
+  externalId       String             @unique
+  username         String?            @unique
+  firstName        String?
+  lastName         String?
+  role             UserRole           @default(GUEST)
+  lastOnlineAt     DateTime           @default(now())
+  emailAddress     String?
+  phoneNumber      String?
+  Course           Course[]
+  Courses_Learners Courses_Learners[]
+  Courses_Teachers Courses_Teachers[]
+  paymentsPaid     Payment[]          @relation("PaymentsPaid")
+  paymentsReceived Payment[]          @relation("PaymentsReceived")
+  Payment          Payment[]
+  learnerProfile   LearnerProfile?    @relation("LearnerProfile")
+  teacherProfile   TeacherProfile?    @relation("TeacherProfile")
+  creatorProfile   CreatorProfile?    @relation("CreatorProfile")
 }
+
+model LearnerProfile {
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+  user          User      @relation("LearnerProfile", fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int       @unique
+  positiveScore Int       @default(0)
+  negativeScore Int       @default(0)
+}
+
+model TeacherProfile {
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+  user          User      @relation("TeacherProfile", fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int       @unique
+  positiveScore Int       @default(0)
+  negativeScore Int       @default(0)
+}
+
+model CreatorProfile {
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+  user          User      @relation("CreatorProfile", fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int       @unique
+  positiveScore Int       @default(0)
+  negativeScore Int       @default(0)
+}
+
+model Course {
+  id                Int                @id @default(autoincrement())
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime?          @updatedAt
+  title             String
+  description       String?
+  metadata          Json?
+  whatsAppUrl       String?
+  meetingUrl        String?
+  classroomUrl      String?
+  classDayMonday    Boolean            @default(false)
+  classDayTuesday   Boolean            @default(false)
+  classDayWednesday Boolean            @default(false)
+  classDayThursday  Boolean            @default(false)
+  classDayFriday    Boolean            @default(false)
+  classDaySaturday  Boolean            @default(false)
+  classDaySunday    Boolean            @default(false)
+  classStartTime    String?
+  classEndTime      String?
+  courseStartDate   DateTime?
+  courseEndDate     DateTime?
+  courseFeeTotal    Float              @default(0)
+  courseFeePartial  Float              @default(0)
+  courseFeeCurrency Currency           @default(LKR)
+  learners          Courses_Learners[]
+  teachers          Courses_Teachers[]
+  owner             User               @relation(fields: [ownerId], references: [id])
+  ownerId           Int
+  positiveScore     Int                @default(0)
+  negativeScore     Int                @default(0)
+}
+
+model Courses_Learners {
+  id            Int                   @id @default(autoincrement())
+  createdAt     DateTime              @default(now())
+  enrollMonth   String?
+  updatedAt     DateTime?             @updatedAt
+  course        Course                @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId      Int
+  learner       User                  @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  learnerId     Int
+  status        Course_Learner_Status @default(PENDING)
+  paymentStatus PaymentStatus         @default(PENDING)
+}
+
+model Courses_Teachers {
+  id        Int                   @id @default(autoincrement())
+  createdAt DateTime              @default(now())
+  updatedAt DateTime?             @updatedAt
+  course    Course                @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  teacher   User                  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  status    Course_Teacher_Status @default(PENDING)
+  courseId  Int
+  teacherId Int
+}
+
+model Payment {
+  id                Int            @id @default(autoincrement())
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime?      @updatedAt
+  externalId        String?
+  paidAt            DateTime
+  paidFor           String
+  remarks           String?
+  orderId           String?
+  method            PaymentMethod?
+  currency          Currency       @default(LKR)
+  amount            Float
+  status            PaymentStatus
+  isVerified        Boolean        @default(false)
+  metadata          Json?
+  documentUrl       String?
+  payerEmailAddress String
+  payeeEmailAddress String?
+  payer             User?          @relation("PaymentsPaid", fields: [payerId], references: [id], onDelete: Restrict)
+  payerId           Int?
+  payee             User?          @relation("PaymentsReceived", fields: [payeeId], references: [id], onDelete: Restrict)
+  payeeId           Int?
+  User              User?          @relation(fields: [userId], references: [id])
+  userId            Int?
+}
+
+// Enums ----------------------------------------------------------------------
 
 enum UserRole {
   GUEST
@@ -28,4 +151,49 @@ enum UserRole {
   MANAGER
   ADMIN
   SUPERADMIN
+}
+
+enum Course_Learner_Status {
+  PENDING
+  ACTIVE
+  COMPLETED
+  SUSPENDED
+  REJECTED
+}
+
+enum Course_Teacher_Status {
+  PENDING
+  ACTIVE
+  COMPLETED
+  SUSPENDED
+  REJECTED
+}
+
+enum Currency {
+  LKR
+  USD
+  GBP
+  EUR
+  AUD
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+}
+
+enum PaymentMethod {
+  CASH
+  PAYHERE
+  VISA
+  MASTER
+  AMEX
+  EZCASH
+  MCASH
+  GENIE
+  VISHWA
+  PAYAPP
+  HNB
+  FRIMI
 }
