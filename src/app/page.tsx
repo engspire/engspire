@@ -34,7 +34,7 @@ export default function Home() {
       <div className="hero mt-24">
         <div className="hero-content text-center flex-col lg:flex-row">
           <Image src="/online-conversation.png" alt="Online Classes" width={250} height={250} />
-          <div className="max-w-md">
+          <div className="max-w-md mx-10 text-center lg:text-left">
             <h1 className="text-5xl font-bold">Courses</h1>
             <p className="pt-6">We offer several online courses that have been designed for improving specific language areas.</p>
           </div>

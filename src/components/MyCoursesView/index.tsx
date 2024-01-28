@@ -6,8 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/apiClient';
 
 export default function MyCoursesView() {
-  const { getToken } = useAuth();
-  const { profile } = useProfile();
+  const { userId, getToken } = useAuth();
+  const { authenticated, profile } = useProfile();
 
   const { data: courses, isLoading } = useQuery({
     queryKey: ["courses"], queryFn: async () => {
@@ -17,7 +17,7 @@ export default function MyCoursesView() {
     }
   });
 
-  return (
+  return userId && (
     <div className='grid gap-6'>
       {isLoading && <div className="min-h-[172px] max-w-sm grid place-items-center text-center"><span className="loading loading-bars loading-lg" ></span></div>}
       {courses?.coursesAsLearner && courses?.coursesAsLearner.length > 0 && (
