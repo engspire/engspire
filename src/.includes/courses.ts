@@ -68,7 +68,7 @@ courses.set("pronunciationTraining", {
     title: "Pronunciation Training",
     route: "/courses/pronunciation-training",
     nextBatchCode: 240112,
-    startDate: parseISO("2024-01-30"),
+    // startDate: parseISO("2024-01-30"),
 });
 
 courses.set("spokenEnglish", {
@@ -118,7 +118,7 @@ courseIntakes.set(pronunciationTrainingIntake.nextBatchCode.toString(), {
     ...pronunciationTrainingIntake,
     courseLabel: "pronunciationTraining",
     status: isBefore(pronunciationTrainingIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
-    canRegister: true,
+    canRegister: false,
     // registrationUrl: `/register/${pronunciationTrainingIntake.nextBatchCode}`,
     registrationUrl: `https://docs.google.com/forms/d/e/1FAIpQLSdZoOcGTeeD_zss-fEhXENlPyvZNK8PBQDF2R4Mu9whydB-3w/viewform?usp=sf_link`,
     batchCode: pronunciationTrainingIntake.nextBatchCode,

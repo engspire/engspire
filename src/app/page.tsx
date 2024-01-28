@@ -5,11 +5,22 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <div className="flex align-top place-items-center text-center flex-col lg:flex-row lg:justify-center lg:text-left">
-        <Image alt="English Diploma" src="/english-diploma.png" className="min-w-[320px] m-16 max-w-xs md:max-w-lg" height={400} width={400} />
+        <Image alt="English Diploma" src="/english-diploma.png" className="max-w-[280px] mt-16 mb-8 md:m-16 md:max-w-lg" height={400} width={400} />
         <div className="max-w-xs sm:max-w-sm">
           <h1 className="text-5xl font-bold">We&apos;re Engspire</h1>
-          <p className="py-6">We create opportunities for Sri Lankans who wish to improve their English language skills by building a community driven by innovation and creativity.</p>
+          <p className="py-6">We are building a community driven by innovation and creativity for Sri Lankans to improve their English language skills.</p>
           <a href="/courses" className="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg>Join a Course</a>
+        </div>
+      </div>
+      <div className="bg-white flex align-top place-items-center text-center flex-col lg:flex-row lg:justify-center lg:text-left mt-12 mb-16 p-12 rounded-full">
+        <Image alt="Engreesi Web App" src="/reader.gif" className="w-96 p-8 max-w-xs" height={350} width={350} />
+        <div className="max-w-xs sm:max-w-sm">
+          <h1 className="text-4xl font-semibold">Engreesi <span className="font-light">Web App</span></h1>
+          <p className="pt-6">Engreesi Web App project makes English learning accessible to everyone in Sri Lanka. It gives you access to hundreds of free lessons and articles.</p>
+          <p className="py-6">මේ ඇප් එකෙන් ලංකාවේ ඕනෑම කෙනෙක්ට ඉංග්‍රීසි පාඩම් නොමිලේ ඉගෙනගන්න පුළුවන්.</p>
+          <a href="https://engreesi.com" target='_blank' className="btn btn-accent"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>Open App</a>
         </div>
       </div>
       <div className="flex align-top place-items-center text-center flex-col lg:flex-row lg:justify-center lg:text-left my-12">
@@ -19,17 +30,6 @@ export default function Home() {
           <a href="https://app.engspire.lk" target="_blank" className="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>Get Early Access</a>
         </div>
         <Image alt="Engspire Web App" src="/mobile-app.png" className="w-96 p-8 max-w-xs" height={400} width={400} />
-      </div>
-      <div className="bg-white flex align-top place-items-center text-center flex-col lg:flex-row lg:justify-center lg:text-left my-12 p-12 rounded-full">
-        <Image alt="Engspire Web App" src="/reader.gif" className="w-96 p-8 max-w-xs" height={350} width={350} />
-        <div className="max-w-xs sm:max-w-sm">
-          <h1 className="text-4xl font-semibold">Engreesi <span className="font-light">Web App</span></h1>
-          <p className="pt-6">Engreesi Web App project makes English learning accessible to everyone in Sri Lanka. It gives you access to hundreds of free lessons and articles.</p>
-          <p className="py-6">මේ ඇප් එකෙන් ලංකාවේ ඕනෑම කෙනෙක්ට ඉංග්‍රීසි පාඩම් නොමිලේ ඉගෙනගන්න පුළුවන්.</p>
-          <a href="https://engreesi.com" target='_blank' className="btn btn-accent"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-          </svg>Open App</a>
-        </div>
       </div>
       <div className="hero mt-24">
         <div className="hero-content text-center flex-col lg:flex-row">

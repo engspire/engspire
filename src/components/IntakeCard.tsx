@@ -12,12 +12,14 @@ export default function IntakeCard({ data, showJoin = false }: IIntakeCardProps)
   return (
     <div className="card w-80 max-w-xs bg-base-100 border shadow-xl">
       <div className="card-body">
-        {showJoin && <h2 className="card-title mb-4">Join the {data.status}</h2>}
-        <div>
-          <p className="text-sm">Start Date</p>
-          <p className="font-bold">{format(data.startDate, "PPP")}</p>
-          <p className="text-xs">{formatDistanceToNow(data.startDate, { addSuffix: true })}</p>
-        </div>
+        {showJoin && data.startDate && <h2 className="card-title mb-4">Join the {data.status}</h2>}
+        {data.startDate &&
+          <div>
+            <p className="text-sm">Start Date</p>
+            <p className="font-bold">{format(data.startDate, "PPP")}</p>
+            <p className="text-xs">{formatDistanceToNow(data.startDate, { addSuffix: true })}</p>
+          </div>
+        }
         <div>
           <p className="text-sm">Duration</p>
           <p className="font-bold">{data.duration}</p>

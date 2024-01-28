@@ -27,7 +27,7 @@ export default function PronunciationTraining() {
                                 <p className="pt-6">This specialized program is dedicated to honing your English speaking skills to a more advanced level. Through this program, you will gain proficiency in articulating words and sentences more naturally.</p>
                                 <p className="py-6">A key feature of this program is the introduction to the International Phonetic Alphabet (IPA), a powerful tool that helps to find the accurate pronunciation of words. Beyond the program&apos;s duration, you will acquire effective self-practice techniques that will contribute to your ongoing learning process.</p>
                             </div>
-                            {intake && (
+                            {intake && intake.startDate && (
                                 <div className="mb-6 alert glass text-sm">
                                     <p>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current inline w-6 h-6 mr-1.5"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
