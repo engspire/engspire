@@ -12,7 +12,7 @@ export type ICourse = {
     title: string,
     route: string,
     nextBatchCode: number,
-    startDate: Date,
+    startDate?: Date,
 };
 
 export type ICourseIntake = ICourse & {
@@ -22,8 +22,8 @@ export type ICourseIntake = ICourse & {
     registrationUrl: string,
     batchCode: number,
     duration: string,
-    startDate: Date,
-    endDate: Date,
+    startDate?: Date,
+    endDate?: Date,
     classDays: {
         Monday?: boolean,
         Tuesday?: boolean,
@@ -86,14 +86,14 @@ const beginnersGrammarIntake = {
 courseIntakes.set(beginnersGrammarIntake.nextBatchCode.toString(), {
     ...beginnersGrammarIntake,
     courseLabel: "beginnersGrammar",
-    status: isBefore(beginnersGrammarIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
+    status: beginnersGrammarIntake.startDate && isBefore(beginnersGrammarIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
     canRegister: true,
     // registrationUrl: `/register/${beginnersGrammarIntake.nextBatchCode}`,
     registrationUrl: `https://docs.google.com/forms/d/e/1FAIpQLScyz6T2eDw_0qgVaJTLTfpzTKRIE5E-jj1vpS3JRZd4By_t-g/viewform?usp=sf_link`,
     batchCode: beginnersGrammarIntake.nextBatchCode,
     duration: "10 weeks",
     startDate: beginnersGrammarIntake.startDate,
-    endDate: addWeeks(beginnersGrammarIntake.startDate, 10),
+    endDate: beginnersGrammarIntake.startDate && addWeeks(beginnersGrammarIntake.startDate, 10),
     classDays: {
         Monday: true,
         Friday: true,
@@ -117,14 +117,14 @@ const pronunciationTrainingIntake = {
 courseIntakes.set(pronunciationTrainingIntake.nextBatchCode.toString(), {
     ...pronunciationTrainingIntake,
     courseLabel: "pronunciationTraining",
-    status: isBefore(pronunciationTrainingIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
+    status: pronunciationTrainingIntake.startDate && isBefore(pronunciationTrainingIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
     canRegister: false,
     // registrationUrl: `/register/${pronunciationTrainingIntake.nextBatchCode}`,
     registrationUrl: `https://docs.google.com/forms/d/e/1FAIpQLSdZoOcGTeeD_zss-fEhXENlPyvZNK8PBQDF2R4Mu9whydB-3w/viewform?usp=sf_link`,
     batchCode: pronunciationTrainingIntake.nextBatchCode,
     duration: "6 weeks",
     startDate: pronunciationTrainingIntake.startDate,
-    endDate: addWeeks(pronunciationTrainingIntake.startDate, 6),
+    endDate: pronunciationTrainingIntake.startDate && addWeeks(pronunciationTrainingIntake.startDate, 6),
     classDays: {
         Tuesday: true,
     },
@@ -141,14 +141,14 @@ const spokenEnglishIntake = {
 courseIntakes.set(spokenEnglishIntake.nextBatchCode.toString(), {
     ...spokenEnglishIntake,
     courseLabel: "spokenEnglish",
-    status: isBefore(spokenEnglishIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
+    status: spokenEnglishIntake.startDate && isBefore(spokenEnglishIntake.startDate, new Date()) ? "ongoing batch" : "next intake",
     canRegister: true,
     // registrationUrl: `/register/${spokenEnglishIntake.nextBatchCode}`,
     registrationUrl: `https://docs.google.com/forms/d/e/1FAIpQLSeD_cQcEAx5MeDnnvsAitJXdLrfiUmyuLSru9FgskLQT88hXA/viewform?usp=sf_link`,
     batchCode: spokenEnglishIntake.nextBatchCode,
     duration: "10 weeks",
     startDate: spokenEnglishIntake.startDate,
-    endDate: addWeeks(spokenEnglishIntake.startDate, 20),
+    endDate: spokenEnglishIntake.startDate && addWeeks(spokenEnglishIntake.startDate, 20),
     classDays: {
         Saturday: true,
     },
