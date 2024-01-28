@@ -108,7 +108,7 @@ courseIntakes.set(beginnersGrammarIntake.nextBatchCode.toString(), {
             { amount: 2500, currency: "LKR", label: "LKR 2,500" },
         ]
     },
-    whatsAppUrl: "https://chat.whatsapp.com/FavQo1tByxxLDqAwZkvEkc",
+    whatsAppUrl: "https://chat.whatsapp.com/GTaqZE31gMvFKeQ5qwwmxX",
 });
 
 const pronunciationTrainingIntake = {
@@ -132,7 +132,7 @@ courseIntakes.set(pronunciationTrainingIntake.nextBatchCode.toString(), {
     totalFee: "LKR 5,000",
     amount: 5000,
     currency: 'LKR',
-    whatsAppUrl: "https://chat.whatsapp.com/CbSMrdSdHeKB4AArsJhzW8",
+    whatsAppUrl: "https://chat.whatsapp.com/KmMzo5TB7qlGXw5NFbn6qt",
 });
 
 const spokenEnglishIntake = {
@@ -164,5 +164,5 @@ courseIntakes.set(spokenEnglishIntake.nextBatchCode.toString(), {
             { amount: 5000, currency: "LKR", label: "LKR 5,000" },
         ]
     },
-    whatsAppUrl: "https://chat.whatsapp.com/GZKetb6lCT04MCpCFI1WUh",
+    whatsAppUrl: "https://chat.whatsapp.com/LEQ4Hz8tIFG3vlazkShUP0",
 });
