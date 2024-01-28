@@ -8,7 +8,7 @@ type ICourseDetailsModal = {
 export default function CourseDetailsModal({ data }: ICourseDetailsModal) {
   return (
     <dialog id={`CourseDetailsModal_${data.id}`} className="modal modal-top md:modal-middle">
-      <div className="modal-box max-h-screen md:max-h-fit md:w-11/12 md:max-w-fit">
+      <div className="modal-box max-h-screen md:max-h-fit md:min-w-[540px] md:max-w-fit">
         <div className="modal-action">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
