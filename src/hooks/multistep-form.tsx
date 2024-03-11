@@ -1,6 +1,16 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
 
-export default function useMultistepForm(steps: ReactElement[]) {
+type Step<T> = {
+  element: ReactElement,
+  shouldSubmit?: boolean,
+  workflow?: T,
+  nextDisabled?: boolean,
+  nextButtonLabel?: ReactNode,
+  backDisabled?: boolean,
+  backButtonLabel?: ReactNode,
+}
+
+export default function useMultistepForm<T>(steps: Step<T>[]) {
   const [isLoading, setIsLoading] = useState(false);
   
   const [currentStepIndex, setCurrentStepIndex] = useState(0);

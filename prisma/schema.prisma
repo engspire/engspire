@@ -9,28 +9,29 @@ datasource db {
 }
 
 model User {
-  id               Int                @id @default(autoincrement())
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @default(now())
-  externalId       String             @unique
-  username         String?            @unique
-  firstName        String?
-  lastName         String?
-  role             UserRole           @default(GUEST)
-  lastOnlineAt     DateTime           @default(now())
-  emailAddress     String?
-  phoneNumber      String?
-  Course           Course[]
-  Batch            Batch[]
-  Courses_Teachers Courses_Teachers[]
-  Batch_Learners   Batch_Learners[]
-  Batch_Teachers   Batch_Teachers[]
-  paymentsPaid     Payment[]          @relation("PaymentsPaid")
-  paymentsReceived Payment[]          @relation("PaymentsReceived")
-  Payment          Payment[]
-  learnerProfile   LearnerProfile?    @relation("LearnerProfile")
-  teacherProfile   TeacherProfile?    @relation("TeacherProfile")
-  creatorProfile   CreatorProfile?    @relation("CreatorProfile")
+  id                   Int                @id @default(autoincrement())
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @default(now())
+  externalId           String             @unique
+  username             String?            @unique
+  emailAddress         String?            @unique
+  firstName            String?
+  lastName             String?
+  role                 UserRole           @default(GUEST)
+  lastOnlineAt         DateTime           @default(now())
+  phoneNumber          String?
+  Course               Course[]
+  Batch                Batch[]
+  Courses_Teachers     Courses_Teachers[]
+  Batch_Learners       Batch_Learners[]   @relation("LearnerInCourseBatch")
+  Batch_Learner_Author Batch_Learners[]   @relation("CreatorOfLearnerInCourseBatchRecord")
+  Batch_Teachers       Batch_Teachers[]
+  paymentsPaid         Payment[]          @relation("PaymentsPaid")
+  paymentsReceived     Payment[]          @relation("PaymentsReceived")
+  Payment              Payment[]
+  learnerProfile       LearnerProfile?    @relation("LearnerProfile")
+  teacherProfile       TeacherProfile?    @relation("TeacherProfile")
+  creatorProfile       CreatorProfile?    @relation("CreatorProfile")
 }
 
 model LearnerProfile {
@@ -112,7 +113,7 @@ model Batch {
   updatedAt         DateTime?        @updatedAt
   course            Course           @relation(fields: [courseId], references: [id])
   courseId          Int
-  batchCode         String
+  batchCode         String           @unique
   title             String
   description       String?
   metadata          Json?
@@ -146,10 +147,12 @@ model Batch_Learners {
   createdAt     DateTime       @default(now())
   enrollMonth   String?
   updatedAt     DateTime?      @updatedAt
-  batch         Batch          @relation(fields: [batchId], references: [id], onDelete: Cascade)
-  batchId       Int
-  learner       User           @relation(fields: [learnerId], references: [id], onDelete: Cascade)
+  batch         Batch          @relation(fields: [batchCode], references: [batchCode], onDelete: Cascade)
+  batchCode     String
+  learner       User           @relation("LearnerInCourseBatch", fields: [learnerId], references: [id], onDelete: Cascade)
   learnerId     Int
+  creator        User?          @relation("CreatorOfLearnerInCourseBatchRecord", fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId      Int?
   status        Learner_Status @default(PENDING)
   paymentStatus PaymentStatus  @default(PENDING)
 }

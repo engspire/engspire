@@ -1,12 +1,18 @@
 /* eslint-disable react/jsx-key */
 'use client';
 import { ICourseLabel, courseIntakes, courses } from '@/.includes/courses';
+import { apiClient } from '@/apiClient';
 import useMultistepForm from '@/hooks/multistep-form';
+import { useAuth } from '@clerk/nextjs';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, ReactNode, useEffect, useState } from 'react';
 import { v4 as generateUuid } from 'uuid';
+import ErrorAnimation from '../ErrorAnimation';
+import SuccessAnimation from '../SuccessAnimation';
 import ContactDetails from './ContactDetails';
 import ProductDetails from './CourseDetails';
+import PaymentStep from './PaymentStep';
 import SignUpSummary from './SignUpSummary';
 
 declare global {
@@ -30,8 +36,14 @@ type FormData = {
 
 type CourseSignUpFlowProps = {};
 
+type CourseSignUpWorkflows = "Sign up for course" | "Pay with PayHere" | "Get Bank Details";
+
 export default function CourseSignUpFlow({}: CourseSignUpFlowProps) {
+  const { getToken } = useAuth();
+
   const [data, setData] = useState({} as FormData);
+  const [successMessage, setSuccessMessage] = useState<ReactNode>();
+  const [errorMessage, setErrorMessage] = useState<ReactNode>();
   const [payHereHash, setPayHereHash] = useState<string | undefined>(undefined);
 
   const { amount } = data;
@@ -63,11 +75,12 @@ export default function CourseSignUpFlow({}: CourseSignUpFlowProps) {
     });
   }
 
-  const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
-    <ProductDetails {...data} updateFields={updateFields} />,
-    <ContactDetails {...data} updateFields={updateFields} />,
-    <SignUpSummary {...data} updateFields={updateFields} />,
-    // <PaymentStep {...data} updateFields={updateFields} />,
+  const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm<CourseSignUpWorkflows>([
+    { element: (<ProductDetails {...data} updateFields={updateFields} />), nextButtonLabel: "Sign up" },
+    { element: (<ContactDetails {...data} updateFields={updateFields} />) },
+    { element: (<SignUpSummary {...data} updateFields={updateFields} />), nextButtonLabel: "Submit", shouldSubmit: true, workflow: "Sign up for course" },
+    { element: (<></>) },
+    { element: (<PaymentStep {...data} updateFields={updateFields} />), nextButtonLabel: "Pay", shouldSubmit: true, workflow: "Pay with PayHere", backDisabled: true },
   ]);
 
   const sandbox = process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === "true";
@@ -120,23 +133,64 @@ export default function CourseSignUpFlow({}: CourseSignUpFlowProps) {
     window.payhere.startPayment(payment);
   }
 
+  const queryClient = useQueryClient();
+
+  const createCourseSignUpMutation = useMutation({
+    mutationFn: async (profileData) => {
+      return await apiClient(await getToken()).post("/v1/courses/sign-up", profileData);
+    },
+    onSuccess: (data) => {
+      console.log("CourseSignUpFlow Result", data);
+      setSuccessMessage(
+        <>
+          <p>You have signed up successfully!</p>
+        </>
+      );
+      nextStep();
+    },
+    onError: (error) => {
+      console.error(error);
+      setErrorMessage(() => (
+        <>
+          <p>An error occurred!</p>
+          <p>Please try again.</p>
+        </>
+      ));
+    },
+  });
+
   function onSubmit(event: FormEvent) {
     event.preventDefault();
-    if (!isLastStep) nextStep();
-    else {
-      console.log("CourseSignUpFlow Data:", data); // Do something with the data
-      // payWithPayHere();
+    setSuccessMessage(undefined);
+    setErrorMessage(undefined);
+    console.log("CourseSignUpFlow Data:", data); // Do something with the data
+    if (!currentStep.shouldSubmit && !isLastStep) nextStep();
+    switch (currentStep.workflow) {
+      case "Pay with PayHere":
+        payWithPayHere();
+        break;
+      case "Sign up for course":
+        createCourseSignUpMutation.mutate(data as any);
+        break;
     }
+  }
+
+  function handleBackButton() {
+    previousStep();
+    setSuccessMessage(undefined);
+    setErrorMessage(undefined);
   }
 
   return (
     <div className="card flex-shrink-0 w-80 max-w-sm shadow-2xl bg-base-100">
       <div className="card-body -mt-2">
         <form onSubmit={onSubmit}>
-          <div>{currentStep}</div>
+          {errorMessage && <ErrorAnimation message={errorMessage} />}
+          {successMessage && <SuccessAnimation message={successMessage} />}
+          {!successMessage && !errorMessage && <div>{currentStep.element}</div>}
           <div className="form-control mt-4">
-            <button type='submit' className='btn btn-primary my-2'>{!isLastStep ? 'Next' : 'Submit'}</button>
-            {!isFirstStep && <button type='button' className='btn my-2' onClick={previousStep}>Back</button>}
+            <button type='submit' className='btn btn-primary my-2'>{currentStep.nextButtonLabel ?? "Next"}</button>
+            {!currentStep.backDisabled && !isFirstStep && !successMessage && <button type='button' className='btn my-2' onClick={handleBackButton}>{currentStep.backButtonLabel ?? "Back"}</button>}
           </div>
         </form>
       </div>

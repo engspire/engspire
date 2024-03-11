@@ -27,7 +27,7 @@ type FormData = {
 
 type OnlinePaymentFormProps = {};
 
-export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
+export default function OnlinePaymentForm({}: OnlinePaymentFormProps) {
   const [data, setData] = useState({} as FormData);
   const [hasProductInfo, setHasProductInfo] = useState(false);
   const [payHereHash, setPayHereHash] = useState<string | undefined>(undefined);
@@ -55,9 +55,9 @@ export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
   }
 
   const { steps, currentStepIndex, currentStep, isFirstStep, isLastStep, nextStep, previousStep } = useMultistepForm([
-    <ProductDetails {...data} updateFields={updateFields} />,
-    <ContactDetails {...data} updateFields={updateFields} />,
-    <TransactionSummary {...data} updateFields={updateFields} />,
+    { element: (<ProductDetails {...data} updateFields={updateFields} />) },
+    { element: (<ContactDetails {...data} updateFields={updateFields} />) },
+    { element: (<TransactionSummary {...data} updateFields={updateFields} />) },
   ]);
 
   const sandbox = process.env.NEXT_PUBLIC_PAYHERE_SANDBOX === "true";
@@ -132,7 +132,7 @@ export default function OnlinePaymentForm({ }: OnlinePaymentFormProps) {
           </div>
         )}
         <form onSubmit={onSubmit}>
-          <div>{currentStep}</div>
+          <div>{currentStep.element}</div>
           <div className="form-control mt-6">
             <button type='submit' className='btn btn-primary my-2' disabled={!hasProductInfo}>{!isLastStep ? 'Next' : 'Pay'}</button>
             {!isFirstStep && <button type='button' className='btn my-2' onClick={previousStep}>Back</button>}
